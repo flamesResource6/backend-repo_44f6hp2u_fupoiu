@@ -228,7 +228,7 @@ def create_requirement(payload: RequirementCreate, current: dict = Depends(requi
 def list_requirements(current: dict = Depends(get_current_user)):
     query = {}
     if current["role"] == "employee":
-        query = {"assigned_employee_ids": {"$in": [str(current["_id"])]}}
+        query = {"assigned_employee_ids": {"$in": [str(current["_id"]) ]}}
     elif current["role"] == "lead":
         query = {"lead_id": str(current["_id"]) }
     items = list(db["requirement"].find(query))
@@ -284,7 +284,7 @@ def list_remarks(req_id: str, current: dict = Depends(get_current_user)):
 def summary(current: dict = Depends(get_current_user)):
     query = {}
     if current["role"] == "employee":
-        query = {"assigned_employee_ids": {"$in": [str(current["_id"])]}}
+        query = {"assigned_employee_ids": {"$in": [str(current["_id"]) ]}}
     elif current["role"] == "lead":
         query = {"lead_id": str(current["_id"]) }
 
@@ -293,14 +293,8 @@ def summary(current: dict = Depends(get_current_user)):
     pending = db["requirement"].count_documents({**query, "status": "Open"})
     issues = db["remark"].count_documents({"remark_type": "issue"})
 
-    # team performance: submissions by employee
-    pipeline = [
-        {"$match": {**({} if not query else query)}},
-        {"$lookup": {"from": "submission", "localField": "_id", "foreignField": "requirement_id", "as": "subs"}},
-        {"$project": {"subs": 1}}
-    ]
     # Simplified: count submissions
-    sub_count = db["submission"].count_documents({}) if current["role"] == "superadmin" else db["submission"].count_documents({})
+    sub_count = db["submission"].count_documents({})
 
     return {
         "total_requirements": total,
@@ -313,7 +307,15 @@ def summary(current: dict = Depends(get_current_user)):
 
 # Seed sample data for demo
 @app.post("/seed")
-def seed():
+def seed(reset: bool = False):
+    # Optional reset to force reseed
+    if reset:
+        for name in ["user", "requirement", "submission", "remark"]:
+            try:
+                db[name].drop()
+            except Exception:
+                pass
+
     # Only seed if no users
     if db["user"].count_documents({}) > 0:
         return {"ok": True, "message": "Already seeded"}

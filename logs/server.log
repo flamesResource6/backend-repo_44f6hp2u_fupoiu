@@ -1,17 +1,17 @@
 INFO:     Will watch for changes in these directories: ['/home/workspace']
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [258] using StatReload
-INFO:     Started server process [260]
+INFO:     Started reloader process [433] using StatReload
+INFO:     Started server process [435]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-INFO:     172.20.0.1:42774 - "HEAD / HTTP/1.1" 405 Method Not Allowed
+INFO:     172.20.0.1:46816 - "HEAD / HTTP/1.1" 405 Method Not Allowed
 (trapped) error reading bcrypt version
 Traceback (most recent call last):
   File "/usr/local/lib/python3.13/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
     version = _bcrypt.__about__.__version__
               ^^^^^^^^^^^^^^^^^
 AttributeError: module 'bcrypt' has no attribute '__about__'
-INFO:     172.20.0.1:42780 - "POST /seed HTTP/1.1" 500 Internal Server Error
+INFO:     172.20.0.1:44856 - "POST /seed HTTP/1.1" 500 Internal Server Error
 (trapped) error reading bcrypt version
 Traceback (most recent call last):
   File "/usr/local/lib/python3.13/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
@@ -87,7 +87,7 @@ Traceback (most recent call last):
            ^^^^^^^^^^^^
   File "/usr/local/lib/python3.13/site-packages/anyio/_backends/_asyncio.py", line 807, in run
     result = context.run(func, *args)
-  File "/home/workspace/main.py", line 326, in seed
+  File "/home/workspace/main.py", line 328, in seed
     "password_hash": hash_password("admin123"),
                      ~~~~~~~~~~~~~^^^^^^^^^^^^
   File "/home/workspace/main.py", line 40, in hash_password
@@ -134,7 +134,7 @@ Traceback (most recent call last):
   File "/usr/local/lib/python3.13/site-packages/passlib/handlers/bcrypt.py", line 655, in _calc_checksum
     hash = _bcrypt.hashpw(secret, config)
 ValueError: password cannot be longer than 72 bytes, truncate manually if necessary (e.g. my_password[:72])
-INFO:     172.20.0.1:42792 - "POST /seed HTTP/1.1" 500 Internal Server Error
+INFO:     172.20.0.1:44854 - "POST /seed HTTP/1.1" 500 Internal Server Error
 ERROR:    Exception in ASGI application
 Traceback (most recent call last):
   File "/usr/local/lib/python3.13/site-packages/uvicorn/protocols/http/h11_impl.py", line 408, in run_asgi
@@ -204,7 +204,7 @@ Traceback (most recent call last):
            ^^^^^^^^^^^^
   File "/usr/local/lib/python3.13/site-packages/anyio/_backends/_asyncio.py", line 807, in run
     result = context.run(func, *args)
-  File "/home/workspace/main.py", line 326, in seed
+  File "/home/workspace/main.py", line 328, in seed
     "password_hash": hash_password("admin123"),
                      ~~~~~~~~~~~~~^^^^^^^^^^^^
   File "/home/workspace/main.py", line 40, in hash_password
